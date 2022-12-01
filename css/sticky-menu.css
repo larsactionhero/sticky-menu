@@ -1,0 +1,11 @@
+.stickymenu {
+	position: fixed !important;
+	z-index: 9999;
+	margin: 0;
+	padding: 0;
+	border: none;
+	box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.5);
+	width: 100%;
+	max-width: 100%;
+	top: 0;
+}
