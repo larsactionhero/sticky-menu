@@ -6,13 +6,13 @@
  * @param {Object} options the options to pass. See constructor() fn for detailed list of options
  */
  export default class StickyMenu {
-  constructor(element, options) {
+  constructor(options) {
     this.startStickyAtPos = options.startStickyAtPos || 0;
     this.breakpoint = options.breakpoint || 0; // if breakpoint is set, init only above breakpoint
-    this.navElement = element;
-    this.navClass = 'stickymenu';
-    this.navPos = options.navPos || null;
-    this.navActiveClass = 'stickymenu-active';
+    this.menuElement = options.menuElement;
+    this.menuClass = 'stickymenu';
+    this.menuPos = options.menuPos || null;
+    this.menuActiveClass = 'stickymenu-active';
     this.contentElement = options.contentElement;
     this.contentElementOffset = options.contentElementOffset;
     this.setContentOffset = options.setContentOffset || false;
@@ -21,30 +21,30 @@
   }
 
   /**
-   * Initializes event listeners and calls navPosition() function.
+   * Initializes event listeners and calls menuPosition() function.
    *
    * @param {HTMLElement} element The element to apply to stickymenu effect onto
    * @param {object} options The options to pass while initializing
    * @returns {void}
    */
   init() {
-    // call navPosition() while scrolling
+    // call menuPosition() while scrolling
     let scrollTimer = null;
     let resizeTimer = null;
     window.addEventListener('scroll', () => {
       this.setIsActive();
       if (scrollTimer) clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => {
-        this.navPosition();
+        this.menuPosition();
       }, 10);
     });
 
-    // call navPosition() if screen resizes (e.g. portrait->landscape)
+    // call menuPosition() if screen resizes (e.g. portrait->landscape)
     window.addEventListener('resize', () => {
       this.setIsActive();
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        this.navPosition();
+        this.menuPosition();
       }, 10);
     });
   }
@@ -58,9 +58,9 @@
    *
    * @returns {void}
    */
-  navPosition() {
+  menuPosition() {
     if (window.innerWidth > this.breakpoint) {
-      this.elementInitialOffsetTop = this.navElement.offsetTop;
+      this.elementInitialOffsetTop = this.menuElement.offsetTop;
 
       const contentElementOffset = (this.isActive) ? this.contentElementOffset : 0;
 
@@ -80,24 +80,24 @@
 
   activate() {
     // left optional offset left
-    if (this.navPos !== null) {
-      this.navElement.style.left = `${this.navPos.left}px`;
+    if (this.menuPos !== null) {
+      this.menuElement.style.left = `${this.menuPos.left}px`;
     }
 
     if (this.zindex !== null) {
-      this.navElement.style.zIndex = this.zIndex;
+      this.menuElement.style.zIndex = this.zIndex;
     }
 
-    this.navElement.classList.add(this.navClass, this.navActiveClass);
-    document.body.classList.add(this.navActiveClass);
+    this.menuElement.classList.add(this.menuClass, this.menuActiveClass);
+    document.body.classList.add(this.menuActiveClass);
   }
 
   deactivate() {
     if (this.zIndex !== null) {
-      this.navElement.style.zIndex = 'inherit';
+      this.menuElement.style.zIndex = 'inherit';
     }
 
-    this.navElement.classList.remove(this.navClass, this.navActiveClass);
-    document.body.classList.remove(this.navActiveClass);
+    this.menuElement.classList.remove(this.menuClass, this.menuActiveClass);
+    document.body.classList.remove(this.menuActiveClass);
   }
 }
