@@ -9,7 +9,7 @@ npm install -S git@github.com:larsactionhero/sticky-menu.git
 ## Usage
 First, make sure to import dependency:
 ```javascript
-import StickyMenu from './lib/sticky-menu';
+import StickyMenu from 'stickymenu';
 ```
 
 ### 1. For a single instance:
