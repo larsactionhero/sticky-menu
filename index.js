@@ -59,11 +59,10 @@
    * @returns {void}
    */
   navPosition() {
-    let contentElementOffset = 0; // set offset in sticky mode to prevent content jumping
     if (window.innerWidth > this.breakpoint) {
       this.elementInitialOffsetTop = this.navElement.offsetTop;
 
-      contentElementOffset = (this.isActive) ? this.contentElementOffset : 0;
+      const contentElementOffset = (this.isActive) ? this.contentElementOffset : 0;
 
       // apply stickymenu mode:
       if (this.isActive) {
