@@ -1,5 +1,4 @@
 # sticky-menu
-
 Current version: 1.0.0 of Dec 01, 2022
 
 ## Installation
@@ -130,10 +129,9 @@ navPos: Number // if set, TODO
 contentElement: HTMLElement 
 ```
 Defines a content element to apply dynamic setting of offset on.
-
 ---
 ```javascript 
-setContentOffset: Boolean true or false
+setContentOffset: Boolean (true or false)
 ```
 ---
 ```javascript 
@@ -142,14 +140,6 @@ contentElementOffset: Number (default: 0)
 ---
 ```javascript 
 zIndex: Number (default: null)
-```
----
-```javascript 
-slideIn: Boolean (default: false)
-```
----
-```javascript 
-slideInStartPos: Number (default: null)
 ```
 ---
 ```javascript 

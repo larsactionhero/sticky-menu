@@ -17,10 +17,6 @@ export default class StickyMenu {
     this.contentElementOffset = options.contentElementOffset;
     this.setContentOffset = options.setContentOffset || false;
     this.zIndex = options.zIndex || null;
-    this.slideIn = options.slideIn || false;
-    this.slideInStartPos = options.slideInStartPos || null;
-    this.slideInStartPos = options.slideInStartPos || null;
-    this.hide = options.hide || false;
   }
 
   /**
@@ -94,9 +90,6 @@ export default class StickyMenu {
       this.navElement.style.zIndex = this.zIndex;
     }
 
-    if (this.hide && this.navElement.hidden) {
-      this.navElement.hidden = false;
-    }
     this.navElement.classList.add(this.navClass, this.navActiveClass);
     document.body.classList.add(this.navActiveClass);
   }
@@ -104,10 +97,6 @@ export default class StickyMenu {
   deactivate() {
     if (this.zIndex !== null) {
       this.navElement.style.zIndex = 'inherit';
-    }
-
-    if (this.hide && !this.navElement.hidden) {
-      this.navElement.hidden = true;
     }
 
     this.navElement.classList.remove(this.navClass, this.navActiveClass);
