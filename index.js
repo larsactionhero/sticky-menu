@@ -22,10 +22,6 @@
 
   /**
    * Initializes event listeners and calls menuPosition() function.
-   *
-   * @param {HTMLElement} element The element to apply to stickymenu effect onto
-   * @param {object} options The options to pass while initializing
-   * @returns {void}
    */
   init() {
     // call menuPosition() while scrolling
