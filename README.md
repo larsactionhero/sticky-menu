@@ -1,5 +1,5 @@
 # sticky-menu
-Current version: 1.0.3 of Dec 05, 2022
+Current version: 1.0.4 of May 26, 2023
 
 ## Installation
 ```npm
