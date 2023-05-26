@@ -80,7 +80,7 @@
     }
 
     this.menuElement.classList.add(this.menuClass, this.menuActiveClass);
-    document.body.classList.add(this.menuActiveClass);
+    document.body.classList.add(this.bodyMenuActiveClass);
   }
 
   deactivate() {
