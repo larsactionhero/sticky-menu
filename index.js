@@ -11,8 +11,8 @@
     this.breakpoint = options.breakpoint || 0; // if breakpoint is set, init only above breakpoint
     this.menuElement = options.menuElement;
     this.menuClass = 'stickymenu';
-    this.menuPos = options.menuPos || null;
     this.menuActiveClass = 'stickymenu-active';
+    this.bodyMenuActiveClass = 'stickymenu-is-active';
     this.contentElement = options.contentElement;
     this.contentElementOffset = options.contentElementOffset;
     this.setContentOffset = options.setContentOffset || false;
@@ -75,11 +75,6 @@
   }
 
   activate() {
-    // left optional offset left
-    if (this.menuPos !== null) {
-      this.menuElement.style.left = `${this.menuPos.left}px`;
-    }
-
     if (this.zindex !== null) {
       this.menuElement.style.zIndex = this.zIndex;
     }
@@ -94,6 +89,6 @@
     }
 
     this.menuElement.classList.remove(this.menuClass, this.menuActiveClass);
-    document.body.classList.remove(this.menuActiveClass);
+    document.body.classList.remove(this.bodyMenuActiveClass);
   }
 }
