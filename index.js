@@ -18,6 +18,8 @@
     this.setContentOffset = options.setContentOffset || false;
     this.zIndex = options.zIndex || null;
     this.isActive = false;
+    this.scrollInterval = options.scrollInterval || 10;
+    this.resizeInterval = options.resizeInterval || 10;
   }
 
   /**
@@ -32,7 +34,7 @@
       if (scrollTimer) clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => {
         this.menuPosition();
-      }, 10);
+      }, this.scrollInterval);
     });
 
     // call menuPosition() if screen resizes (e.g. portrait->landscape)
@@ -41,7 +43,7 @@
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         this.menuPosition();
-      }, 10);
+      }, this.resizeInterval);
     });
   }
 
