@@ -73,6 +73,8 @@
       if (this.contentElement !== null && this.setContentOffset) {
         this.contentElement.style.marginTop = `${contentElementOffset}px`;
       }
+    } else {
+      this.deactivate();
     }
   }
 
