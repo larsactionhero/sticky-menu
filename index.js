@@ -31,7 +31,7 @@ export default class StickyMenu {
     let timeout = null;
     const { type } = event;
 
-    if (window.width >= this.breakpoint) {
+    if (window.innerWidth >= this.breakpoint) {
       if (type === 'scroll') {
         timeout = this.scrollEventTimeout;
       } else if (type === 'resize') {
