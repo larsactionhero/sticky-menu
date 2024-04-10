@@ -2,7 +2,7 @@
 sticky-menu is a light-weight (~3.5kB) plugin to easily create a sticky navigation which can be customized for your needs.
 It's written in vanilla javascript and comes without any further dependencies. 
 
-Current version: 1.0.9 of April 10, 2024
+Current version: 1.1 of April 10, 2024
 
 ## Installation
 ```npm
