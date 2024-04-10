@@ -2,8 +2,6 @@
 sticky-menu is a light-weight (~3.5kB) plugin to easily create a sticky navigation which can be customized for your needs.
 It's written in vanilla javascript and comes without any further dependencies. 
 
-Current version: 1.2 of April 10, 2024
-
 ## Installation
 ```npm
 npm install sticky-menu
@@ -52,6 +50,6 @@ stickyMenu.init(); // call init() to fire plugin
 | `menuElement` | HTMLElement  |  | The target element to apply sticky mode on. | **true** |
 | `menuClass` | Number  | `stickymenu` | The basic css class which is added in sticky mode. | false |
 | `scrollPosY` | Number  | 0 _(in px)_ | Controls at which scroll position the stickymenu takes effect. | false |
-| `resizeEventTimeout` | Number  | 50 _(in ms)_ | Final event execution in resize handler is delayed to prevent being fired on every px while resizing.<br>This set timeout in ms after which the final resize event fires. | false |
-| `scrollEventTimeout` | Number  | 50 _(in ms)_ | Final event execution in scroll handler is delayed to prevent being fired on every px while scrolling.<br>This set timeout in ms after which the final scroll event fires. | false |
+| `resizeEventTimeout` | Number  | 50 _(in ms)_ | Final event execution in resize handler is delayed to prevent being fired on every px while resizing.<br>This sets timeout in ms after which the final resize event fires. | false |
+| `scrollEventTimeout` | Number  | 50 _(in ms)_ | Final event execution in scroll handler is delayed to prevent being fired on every px while scrolling.<br>This sets timeout in ms after which the final scroll event fires. | false |
 
