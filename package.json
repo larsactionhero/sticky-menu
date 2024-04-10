@@ -1,6 +1,25 @@
 {
-  "name": "stickymenu",
-  "private": true,
-  "version": "1.1",
-  "author": "Lars Ortlepp <job@larsactionhero.com>"
+  "name": "sticky-menu",
+  "version": "1.1.0",
+  "description": "A light-weight sticky navigation plugin written in vanilla javascript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/larsactionhero/sticky-menu.git"
+  },
+  "keywords": [
+    "sticky",
+    "navigation",
+    "sticky",
+    "menu"
+  ],
+  "author": "Lars Ortlepp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/larsactionhero/sticky-menu/issues"
+  },
+  "homepage": "https://github.com/larsactionhero/sticky-menu#readme"
 }
