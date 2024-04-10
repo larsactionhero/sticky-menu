@@ -6,7 +6,7 @@ Current version: 1.1 of April 10, 2024
 
 ## Installation
 ```npm
-npm install -S git@github.com:larsactionhero/sticky-menu.git
+npm install sticky-menu
 ```
 
 ## Usage
