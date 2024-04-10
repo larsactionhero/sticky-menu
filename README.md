@@ -1,5 +1,5 @@
 # sticky-menu
-sticky-menu is a light-weight (kB) plugin to easily create a sticky navigation which can be customized for your needs.
+sticky-menu is a light-weight (~3.5kB) plugin to easily create a sticky navigation which can be customized for your needs.
 It's written in vanilla javascript and comes without any further dependencies. 
 
 Current version: 1.0.9 of April 10, 2024
@@ -21,14 +21,16 @@ Import basic css:
 ```
 
 ## Setup
-Setup requires an element `HTMLElement`.
-Options can be passed as an `Object`.
+Requires an html element selector (classname, id, data-attribute, ...), options can be passed as an `Object`.
+
+#### Basic example:
 ```javascript
-const sticky = new StickyMenu(element, options);
+const stickyMenu = new StickyMenu(HTMLElementSelector);
 ```
 
+#### Example with options:
 ```javascript
-const stickyMenu = new StickyMenu(stickyMenuElement, {
+const stickyMenu = new StickyMenu(HTMLElementSelector, {
   element: document.querySelector('header'),
   options: {
     contentElement: document.querySelector('main'), 
