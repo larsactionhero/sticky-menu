@@ -41,7 +41,7 @@ export default class StickyMenu {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
       this.menuPosition();
-    }, interval);
+    }, timeout);
   }
 
   /**
