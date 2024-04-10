@@ -16,6 +16,7 @@ export default class StickyMenu {
     this.contentElement = options.contentElement || null;
     this.contentElementOffset = options.contentElementOffset;
     this.isActive = false;
+    this.isAboveBreakpoint = false;
     this.scrollEventTimeout = options.scrollEventTimeout || 50;
     this.resizeEventTimeout = options.resizeEventTimeout || 50;
     this.onDoInitStickyMenu = null;
@@ -23,7 +24,7 @@ export default class StickyMenu {
 
   /**
    * inits sticky menu
-   * 
+   *
    * @param {Event} event
    */
   onInitStickyMenu(event) {
@@ -31,15 +32,15 @@ export default class StickyMenu {
     let timeout = null;
     const { type } = event;
 
-    if (window.innerWidth >= this.breakpoint) {
+    if (this.isAboveBreakpoint) {
       if (type === 'scroll') {
         timeout = this.scrollEventTimeout;
       } else if (type === 'resize') {
         timeout = this.resizeEventTimeout;
       }
-  
-      this.setActiveMode();
-  
+
+      this.testScrollY();
+
       if (timer) clearTimeout(timer);
       timer = setTimeout(() => {
         this.menuPosition();
@@ -52,8 +53,12 @@ export default class StickyMenu {
   /**
    * sets this.isActive to true if scrollY is above scrollPosY
    */
-  setActiveMode() {
+  testScrollY() {
     this.isActive = window.scrollY > this.scrollPosY;
+  }
+
+  testBreakpoint() {
+    this.isAboveBreakpoint = window.innerWidth >= this.breakpoint;
   }
 
   /**
@@ -111,6 +116,13 @@ export default class StickyMenu {
    */
   init() {
     this.destroy(); // reset at first
+    this.testBreakpoint();
+    this.testScrollY();
+
+    if (this.isAboveBreakpoint && this.isActive) {
+      this.setMenuMode();
+    }
+
     this.onDoInitStickyMenu = this.onInitStickyMenu.bind(this);
     window.addEventListener('scroll', this.onDoInitStickyMenu);
     window.addEventListener('resize', this.onDoInitStickyMenu);
