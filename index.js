@@ -22,26 +22,31 @@ export default class StickyMenu {
   }
 
   /**
-   *
-   * @param {*} event
+   * inits sticky menu
+   * 
+   * @param {Event} event
    */
   onInitStickyMenu(event) {
     let timer = null;
     let timeout = null;
     const { type } = event;
 
-    if (type === 'scroll') {
-      timeout = this.scrollEventTimeout;
-    } else if (type === 'resize') {
-      timeout = this.resizeEventTimeout;
+    if (window.width >= this.breakpoint) {
+      if (type === 'scroll') {
+        timeout = this.scrollEventTimeout;
+      } else if (type === 'resize') {
+        timeout = this.resizeEventTimeout;
+      }
+  
+      this.setActiveMode();
+  
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        this.menuPosition();
+      }, timeout);
+    } else {
+      this.destroy();
     }
-
-    this.setActiveMode();
-
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(() => {
-      this.menuPosition();
-    }, timeout);
   }
 
   /**
@@ -53,21 +58,17 @@ export default class StickyMenu {
 
   /**
    * Toggles stickymenu mode depending on window.scrollY
-   *
-   * @returns {void}
    */
   menuPosition() {
-    if (window.innerWidth >= this.breakpoint) {
-      this.elementInitialOffsetTop = this.menuElement.offsetTop;
-      const contentElementOffset = this.isActive ? this.contentElementOffset : 0;
+    this.elementInitialOffsetTop = this.menuElement.offsetTop;
+    const contentElementOffset = this.isActive ? this.contentElementOffset : 0;
 
-      // apply offset to content element
-      if (this.contentElementOffset && this.contentElement !== null) {
-        this.contentElement.style.marginTop = `${contentElementOffset}px`;
-      }
-
-      this.setMenuMode();
+    // apply offset to content element
+    if (this.contentElementOffset && this.contentElement !== null) {
+      this.contentElement.style.marginTop = `${contentElementOffset}px`;
     }
+
+    this.setMenuMode();
   }
 
   /**
