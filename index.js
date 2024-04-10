@@ -7,18 +7,17 @@
  */
 export default class StickyMenu {
   constructor(options) {
-    this.startPos = options.startPos || 0;
+    this.scrollPosY = options.scrollPosY || 0;
     this.breakpoint = options.breakpoint || 0; // if breakpoint is set, init only above breakpoint
     this.menuElement = options.menuElement;
     this.menuClass = 'stickymenu';
-    this.menuActiveClass = 'stickymenu-active';
-    this.bodyMenuActiveClass = 'stickymenu-is-active';
-    this.contentElement = options.contentElement;
+    this.menuActiveClass = `${this.menuClass}-active`;
+    this.bodyMenuActiveClass = `${this.menuClass}-is-active`;
+    this.contentElement = options.contentElement || null;
     this.contentElementOffset = options.contentElementOffset;
-    this.setContentOffset = options.setContentOffset || false;
     this.isActive = false;
-    this.scrollInterval = options.scrollInterval || 10;
-    this.resizeInterval = options.resizeInterval || 10;
+    this.scrollEventTimeout = options.scrollEventTimeout || 50;
+    this.resizeEventTimeout = options.resizeEventTimeout || 50;
     this.onDoInitStickyMenu = null;
   }
 
@@ -28,13 +27,13 @@ export default class StickyMenu {
    */
   onInitStickyMenu(event) {
     let timer = null;
-    let interval = null;
+    let timeout = null;
     const { type } = event;
 
     if (type === 'scroll') {
-      interval = this.scrollInterval;
+      timeout = this.scrollEventTimeout;
     } else if (type === 'resize') {
-      interval = this.resizeInterval;
+      timeout = this.resizeEventTimeout;
     }
 
     this.setActiveMode();
@@ -46,10 +45,10 @@ export default class StickyMenu {
   }
 
   /**
-   * sets this.isActive to true if scrollY is above startPos
+   * sets this.isActive to true if scrollY is above scrollPosY
    */
   setActiveMode() {
-    this.isActive = window.scrollY > this.startPos;
+    this.isActive = window.scrollY > this.scrollPosY;
   }
 
   /**
@@ -58,12 +57,12 @@ export default class StickyMenu {
    * @returns {void}
    */
   menuPosition() {
-    if (window.innerWidth > this.breakpoint) {
+    if (window.innerWidth >= this.breakpoint) {
       this.elementInitialOffsetTop = this.menuElement.offsetTop;
       const contentElementOffset = this.isActive ? this.contentElementOffset : 0;
 
       // apply offset to content element
-      if (this.setContentOffset && this.contentElement !== null) {
+      if (this.contentElementOffset && this.contentElement !== null) {
         this.contentElement.style.marginTop = `${contentElementOffset}px`;
       }
 

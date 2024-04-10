@@ -1,5 +1,8 @@
 # sticky-menu
-Current version: 1.0.5 of May 26, 2023
+sticky-menu is a light-weight (kB) plugin to easily create a sticky navigation which can be customized for your needs.
+It's written in vanilla javascript and comes without any further dependencies. 
+
+Current version: 1.1 of April 10, 2024
 
 ## Installation
 ```npm
@@ -12,136 +15,40 @@ First, make sure to import dependency:
 import StickyMenu from 'stickymenu';
 ```
 
-### 1. For a single instance:
-```javascript
-
-// select menu item
-const stickyMenuElement = document.querySelector('.my-menu');
-
-// set up config
-const stickyMenuConfig = {
-  element: stickyMenuElement,
-  options: {
-    contentElement: document.querySelector('.header-slider'), // set element to prevent from jumping when menu is active
-    setContentOffset: true,
-    contentElementOffset: 100, // e.g. header height
-    startStickyAtPos: 50, // e.g. start at 50% of header height
-    hide: false,
-  }
-};
-
-const stickyMenuInst = new StickyMenu(stickyMenuElement, stickyMenuConfig);
-stickyMenuInst.init();
-```
-
-### 2. For a multiple instances:
-```javascript
-const stickyMenuElement_1 = document.querySelector('.my-menu');
-const stickyMenuElement_2 = document.querySelector('.my-second-menu');
-
-// set up config as object and loop over entries
-const stickyMenuConfig = {
-  0: {
-    element: stickyMenuElement_1,
-    options: {
-      contentElement: document.querySelector('.header-slider'),
-      setContentOffset: true,
-      contentElementOffset: contentOffset,
-      startStickyAtPos: (mainHeaderHeight / 2), // fire when nav is hidden by half of its height
-      hide: false,
-    },
-  },
-  1: {
-    element: stickyMenuElement_2,
-    options: {
-      startStickyAtPos: 400,
-      hide: false,
-    },
-  },
-};
-
-// iterate over config items an fire init for each entry
-for (let i = 0; i < Object.keys(stickyMenuConfig).length; i += 1) {
-  stickyMenuItem = stickyMenuConfig[i];
-  stickyMenuElement = document.querySelector(stickyMenuItem.element);
-  initStickyMenu = (stickyMenuElement !== null) ? stickyMenuElement.dataset.stickyMenu : false;
-
-  if (initStickyMenu === '1') {
-    const stickyMenuInst = new StickyMenu(stickyMenuElement, stickyMenuItem.options);
-    stickyMenuInst.init();
-  }
-}
-```
-
-### 3. Params on html element(s)
-init an element:  
-```
-[data-sticky-menu="1"]
-```
-
-```html
-<div class="sticky-menu" data-sticky-menu="1">
-  <a href="#">Link 1</a>
-  <a href="#">Link 2</a>
-  <a href="#">Link 3</a>
-</div>
-```
-
+Import basic css:
 ```css
-@import '~sticky-menu/css/sticky-menu.css';
+@import '~/stickymenu/css/style.css'; /* you may check if you need the tilde (~) alias for /node_modules folder */
 ```
 
 ## Setup
 Setup requires an element `HTMLElement`.
-Options are optional are are being passed via object.
+Options can be passed as an `Object`.
 ```javascript
 const sticky = new StickyMenu(element, options);
 ```
 
+```javascript
+const stickyMenu = new StickyMenu(stickyMenuElement, {
+  element: document.querySelector('header'),
+  options: {
+    contentElement: document.querySelector('main'), 
+    contentElementOffset: 100,  // content offset (in px)
+    startStickyAtPos: 30,       // sticky menu starts if scrollTop is >= 30px
+    resizeEventTimeout: 100,    // timeout after which the resize event fires (in ms)
+    scrollEventTimeout 100,     // timeout after scroll the scroll event fires (in ms). 
+});
+stickyMenu.init();
+```
+
 ## Options
-```javascript 
-startStickyAtPos = options.startStickyAtPos || 0;
-```
-Controls at which scroll position the sticky menu takes effect.
+| Option name | Type | Default | Description | Required |
+|---|---|---|---|---|
+| `breakpoint` | Number  | 0 _(in px)_ | Stickymenu is only initialized if window width is above or equal to breakpoint.  | false |
+| `contentElement` | HTMLElement  || Element to apply offset (in px) on.<br>_Note:_ a (_sticky_) element with `position: fixed` usually causes 'jumping' content due to its missing height.<br>To prevent that, just use the `contentElementOffset` option by adding offset to the to the next following element after your menu element.<br> Will only be applied if option is set. | false |
+| `contentElementOffset` | Number | 0 _(in px)_ | Sets content element offset. | false |
+| `menuElement` | HTMLElement  |  | The target element to apply sticky mode on. | **true** |
+| `menuClass` | Number  | `stickymenu` | The basic css class which is added in sticky mode. | false |
+| `scrollPosY` | Number  | 0 _(in px)_ | Controls at which scroll position the stickymenu takes effect. | false |
+| `resizeEventTimeout` | Number  | 50 _(in ms)_ | Final event execution in resize handler is delayed to prevent being fired on every px while resizing.<br>This set timeout in ms after which the final resize event fires. | false |
+| `scrollEventTimeout` | Number  | 50 _(in ms)_ | Final event execution in scroll handler is delayed to prevent being fired on every px while scrolling.<br>This set timeout in ms after which the final scroll event fires. | false |
 
----
-```javascript 
-breakpoint: Number (default: 0) 
-```
-If set, sticky menu inits only when window width is > breakpoint
-
----
-```javascript 
-navElement: HTMLElement (*required)
-```
----
-```javascript 
-navClass: String (default: 'stickymenu')
-```
-The initial menu class. Usually no need to overwrite it.
-
----
-```javascript 
-navPos: Number // if set, TODO
-```
----
-```javascript 
-contentElement: HTMLElement 
-```
-Defines a content element to apply dynamic setting of offset on.
----
-```javascript 
-setContentOffset: Boolean (true or false)
-```
----
-```javascript 
-contentElementOffset: Number (default: 0)
-```
----
-```javascript 
-zIndex: Number (default: null)
-```
----
-```javascript 
-hide: Boolean (default: false)
-```
