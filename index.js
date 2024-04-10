@@ -5,9 +5,9 @@
  * @param {String} element element as string or already existing HTMLElement
  * @param {Object} options the options to pass. See constructor() fn for detailed list of options
  */
- export default class StickyMenu {
+export default class StickyMenu {
   constructor(options) {
-    this.startStickyAtPos = options.startStickyAtPos || 0;
+    this.startPos = options.startPos || 0;
     this.breakpoint = options.breakpoint || 0; // if breakpoint is set, init only above breakpoint
     this.menuElement = options.menuElement;
     this.menuClass = 'stickymenu';
@@ -16,39 +16,40 @@
     this.contentElement = options.contentElement;
     this.contentElementOffset = options.contentElementOffset;
     this.setContentOffset = options.setContentOffset || false;
-    this.zIndex = options.zIndex || null;
     this.isActive = false;
     this.scrollInterval = options.scrollInterval || 10;
     this.resizeInterval = options.resizeInterval || 10;
+    this.onDoInitStickyMenu = null;
   }
 
   /**
-   * Initializes event listeners and calls menuPosition() function.
+   *
+   * @param {*} event
    */
-  init() {
-    // call menuPosition() while scrolling
-    let scrollTimer = null;
-    let resizeTimer = null;
-    window.addEventListener('scroll', () => {
-      this.setIsActive();
-      if (scrollTimer) clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        this.menuPosition();
-      }, this.scrollInterval);
-    });
+  onInitStickyMenu(event) {
+    let timer = null;
+    let interval = null;
+    const { type } = event;
 
-    // call menuPosition() if screen resizes (e.g. portrait->landscape)
-    window.addEventListener('resize', () => {
-      this.setIsActive();
-      if (resizeTimer) clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        this.menuPosition();
-      }, this.resizeInterval);
-    });
+    if (type === 'scroll') {
+      interval = this.scrollInterval;
+    } else if (type === 'resize') {
+      interval = this.resizeInterval;
+    }
+
+    this.setActiveMode();
+
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      this.menuPosition();
+    }, interval);
   }
 
-  setIsActive() {
-    this.isActive = (window.scrollY > this.startStickyAtPos);
+  /**
+   * sets this.isActive to true if scrollY is above startPos
+   */
+  setActiveMode() {
+    this.isActive = window.scrollY > this.startPos;
   }
 
   /**
@@ -59,40 +60,68 @@
   menuPosition() {
     if (window.innerWidth > this.breakpoint) {
       this.elementInitialOffsetTop = this.menuElement.offsetTop;
-
-      const contentElementOffset = (this.isActive) ? this.contentElementOffset : 0;
-
-      // apply stickymenu mode:
-      if (this.isActive) {
-        this.activate();
-      } else {
-        this.deactivate();
-      }
+      const contentElementOffset = this.isActive ? this.contentElementOffset : 0;
 
       // apply offset to content element
-      if (this.contentElement !== null && this.setContentOffset) {
+      if (this.setContentOffset && this.contentElement !== null) {
         this.contentElement.style.marginTop = `${contentElementOffset}px`;
       }
+
+      this.setMenuMode();
+    }
+  }
+
+  /**
+   * enables or disabled sticky menu
+   */
+  setMenuMode() {
+    if (this.isActive) {
+      this.menuElement.classList.add(this.menuClass, this.menuActiveClass);
+      document.body.classList.add(this.bodyMenuActiveClass);
     } else {
-      this.deactivate();
+      this.menuElement.classList.remove(this.menuClass, this.menuActiveClass);
+      document.body.classList.remove(this.bodyMenuActiveClass);
     }
   }
 
-  activate() {
-    if (this.zindex !== null) {
-      this.menuElement.style.zIndex = this.zIndex;
-    }
-
-    this.menuElement.classList.add(this.menuClass, this.menuActiveClass);
-    document.body.classList.add(this.bodyMenuActiveClass);
+  /**
+   * removes both scroll & resize listeners
+   */
+  removeEvents() {
+    window.removeEventListener('scroll', this.onDoInitStickyMenu);
+    window.removeEventListener('resize', this.onDoInitStickyMenu);
   }
 
-  deactivate() {
-    if (this.zIndex !== null) {
-      this.menuElement.style.zIndex = 'inherit';
-    }
+  /**
+   * optional: removes only scroll event
+   */
+  removeScrollEvent() {
+    window.removeEventListener('scroll', this.onDoInitStickyMenu);
+  }
 
-    this.menuElement.classList.remove(this.menuClass, this.menuActiveClass);
-    document.body.classList.remove(this.bodyMenuActiveClass);
+  /**
+   * optional: removes only resize event
+   */
+  removeResizeEvent() {
+    window.removeEventListener('resize', this.onDoInitStickyMenu);
+  }
+
+  /**
+   * Initializes event listeners for scroll & resize and calls onInitStickyMenu()
+   */
+  init() {
+    this.destroy(); // reset at first
+    this.onDoInitStickyMenu = this.onInitStickyMenu.bind(this);
+    window.addEventListener('scroll', this.onDoInitStickyMenu);
+    window.addEventListener('resize', this.onDoInitStickyMenu);
+  }
+
+  /**
+   * resets sticky menu and removes all related classes from elements
+   */
+  destroy() {
+    this.isActive = false;
+    this.removeEvents();
+    this.setMenuMode();
   }
 }

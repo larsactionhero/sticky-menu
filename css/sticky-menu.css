@@ -1,3 +1,6 @@
+/*
+* just a basic style. overwrite it for your requirements.
+*/
 .stickymenu {
 	position: fixed !important;
 	z-index: 9999;
