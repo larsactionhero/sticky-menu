@@ -39,7 +39,8 @@ const stickyMenu = new StickyMenu(HTMLElementSelector, {
     resizeEventTimeout: 100,    // timeout after which the resize event fires (in ms)
     scrollEventTimeout 100,     // timeout after scroll the scroll event fires (in ms). 
 });
-stickyMenu.init();
+
+stickyMenu.init(); // call init() to fire plugin
 ```
 
 ## Options
