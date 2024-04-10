@@ -1,6 +1,6 @@
 {
   "name": "sticky-menu",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A light-weight sticky navigation plugin written in vanilla javascript.",
   "main": "index.js",
   "scripts": {
