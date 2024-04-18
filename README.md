@@ -1,5 +1,5 @@
 # sticky-menu
-sticky-menu is a light-weight (kB) plugin to easily create a sticky navigation which can be customized for your needs.
+sticky-menu is a light-weight plugin to easily create a sticky navigation which can be customized for your needs.
 It's written in vanilla javascript and comes without any further dependencies. 
 
 ## Installation
@@ -15,19 +15,32 @@ import StickyMenu from 'stickymenu';
 
 Import basic css:
 ```css
-@import '~/stickymenu/css/style.css'; /* you may check if you need the tilde (~) alias for /node_modules folder */
+@import '~/stickymenu/css/style.css'; /* you may check if you need the tilde (~) alias for /node_modules folder. */
 ```
 
 ## Setup
+
 Setup requires an element `HTMLElement`.
-Options can be passed as an `Object`.
+Options are passed as `Object`.
 ```javascript
-const sticky = new StickyMenu(element, options);
+const sticky = new StickyMenu(options);
+```
+
+Requires an html element selector (classname, id, data-attribute, …).<br>
+Options are passed as `Object`.
+
+#### Basically you need:
+```javascript
+const options = {
+  // place options here
+};
+const stickyMenu = new StickyMenu(options); // fires init
 ```
 
 ```javascript
-const stickyMenu = new StickyMenu(stickyMenuElement, {
-  element: document.querySelector('header'),
+const menuElementSelector = document.querySelector('.myNavElement');
+const stickyMenu = new StickyMenu({
+  menuElement: menuElementSelector,
   options: {
     contentElement: document.querySelector('main'), 
     contentElementOffset: 100,  // content offset (in px)
@@ -45,7 +58,7 @@ stickyMenu.init();
 | `contentElement` | HTMLElement  || Element to apply offset (in px) on.<br>_Note:_ a (_sticky_) element with `position: fixed` usually causes 'jumping' content due to its missing height.<br>To prevent that, just use the `contentElementOffset` option by adding offset to the to the next following element after your menu element.<br> Will only be applied if option is set. | false |
 | `contentElementOffset` | Number | 0 _(in px)_ | Sets content element offset. | false |
 | `menuElement` | HTMLElement  |  | The target element to apply sticky mode on. | **true** |
-| `menuClass` | Number  | `stickymenu` | The basic css class which is added in sticky mode. | false |
+| `menuClass` | String  | `stickymenu` | A css class which is added to target element when in sticky mode.<br>Note: the active class is generated automatically. `yourClassName` results in `yourclassname-active`.  | false |
 | `scrollPosY` | Number  | 0 _(in px)_ | Controls at which scroll position the stickymenu takes effect. | false |
 | `resizeEventTimeout` | Number  | 50 _(in ms)_ | Final event execution in resize handler is delayed to prevent being fired on every px while resizing.<br>This sets timeout in ms after which the final resize event fires. | false |
 | `scrollEventTimeout` | Number  | 50 _(in ms)_ | Final event execution in scroll handler is delayed to prevent being fired on every px while scrolling.<br>This sets timeout in ms after which the final scroll event fires. | false |
