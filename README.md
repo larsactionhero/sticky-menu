@@ -10,7 +10,7 @@ npm install sticky-menu
 ## Usage
 First, make sure to import dependency:
 ```javascript
-import StickyMenu from 'stickymenu';
+import StickyMenu from 'sticky-menu';
 ```
 
 Import basic css:
