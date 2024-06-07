@@ -7,7 +7,7 @@
  */
 export default class StickyMenu {
   constructor(options) {
-    this.scrollPosY = options.scrollPosY || 0;
+    this.scrollPosY = options.startStickyAtPos || 0;
     this.breakpoint = options.breakpoint || 0; // if breakpoint is set, init only above breakpoint
     this.menuElement = options.menuElement;
     this.menuClass = 'stickymenu';
