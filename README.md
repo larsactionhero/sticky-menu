@@ -46,7 +46,8 @@ const stickyMenu = new StickyMenu({
     contentElementOffset: 100,  // content offset (in px)
     startStickyAtPos: 30,       // sticky menu starts if scrollTop is >= 30px
     resizeEventTimeout: 100,    // timeout after which the resize event fires (in ms)
-    scrollEventTimeout: 100,     // timeout after scroll the scroll event fires (in ms). 
+    scrollEventTimeout: 100,     // timeout after scroll the scroll event fires (in ms)
+  }
 });
 
 stickyMenu.init(); // call init() to fire plugin
