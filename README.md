@@ -15,7 +15,7 @@ import StickyMenu from 'sticky-menu';
 
 Import basic css:
 ```css
-@import '~/stickymenu/css/style.css'; /* you may check if you need the tilde (~) alias for /node_modules folder. */
+@import '~/sticky-menu/css/style.css'; /* you may check if you need the tilde (~) alias for /node_modules folder. */
 ```
 
 ## Setup
