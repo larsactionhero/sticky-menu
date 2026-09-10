@@ -1,7 +1,8 @@
 /*
 * just a basic style. overwrite it for your requirements.
 */
-.stickymenu {
+.sticky-menu {
+	background-color: #fff;
 	position: fixed;
 	z-index: 9999;
 	margin: 0;
