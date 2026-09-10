@@ -13,10 +13,16 @@ First, make sure to import dependency:
 import StickyMenu from 'sticky-menu';
 ```
 
-Import basic css:
+Import the basic css:
 ```css
 @import '~/sticky-menu/css/style.css'; /* you may check if you need the tilde (~) alias for /node_modules folder. */
 ```
+
+Or, in a more modern way:
+```css
+@use 'sticky-menu/css/style.css'; 
+```
+
 
 ## Setup
 Setup requires an element `HTMLElement`.
