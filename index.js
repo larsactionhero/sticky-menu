@@ -10,7 +10,7 @@ export default class StickyMenu {
     this.scrollPosY = options.startStickyAtPos || 0;
     this.breakpoint = options.breakpoint || 0; // if breakpoint is set, init only above breakpoint
     this.menuElement = options.menuElement;
-    this.menuClass = 'stickymenu';
+    this.menuClass = 'sticky-menu';
     this.menuActiveClass = `${this.menuClass}-active`;
     this.bodyMenuActiveClass = `${this.menuClass}-is-active`;
     this.contentElement = options.contentElement || null;
